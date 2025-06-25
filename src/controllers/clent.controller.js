@@ -1,0 +1,123 @@
+import { handleError, succesMessage } from "../helpers/error.succes.js";
+import Clent from "../models/clent.model.js";
+import {
+  creatClentValidator,
+  signinClentValidator,
+  updateClentValidator,
+} from "../validator/clent.validator.js";
+import { Crypto } from "../utils/hashedpass.js";
+
+const crypto = new Crypto();
+
+class ClentController {
+  async creatClent(req, res) {
+    try {
+      const { value, error } = creatClentValidator(req.body);
+      if (error) {
+        return handleError(res, error, 422);
+      }
+      const phoneNumber = value.phoneNumber;
+      const isClent = await Clent.findOne({ phoneNumber });
+      if (isClent) {
+        return handleError(res, "Clent already exists");
+      }
+      const hashPass = await crypto.encrypt(value.password);
+      const newClent = await Clent.create({
+        ...value,
+        password: hashPass,
+      });
+      return succesMessage(res, newClent, 201);
+    } catch (error) {
+      return handleError(res, error);
+    }
+  }
+  async signinClent(req, res) {
+    try {
+      const { value, error } = signinClentValidator(req.body);
+      if (error) {
+        return handleError(res, error, 422);
+      }
+      const clent = await Clent.findOne({ phoneNumber: value.phoneNumber });
+      if (!clent) {
+        return handleError(res, "Clent not found", 404);
+      }
+      const pass = await crypto.decrypt(value.password, clent.password);
+      if (!pass) {
+        return handleError(res, "Clent not found");
+      }
+      const payload = { id: clent._id };
+      const refreshToken = await token.generateAccesToken(payload);
+      const accessToken = await token.generateRefreshToken(payload);
+      res.cookie("refreshTokenClent", refreshToken, {
+        httpOnly: true,
+        secure: true,
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+      });
+      return succesMessage(
+        res,
+        {
+          data: admin,
+          token: accessToken,
+        },
+        200
+      );
+    } catch (error) {
+      return handleError(res, error);
+    }
+  }
+  async getAllClents(_, res) {
+    try {
+      const clents = await Clent.find();
+      return succesMessage(res, clents);
+    } catch (error) {
+      return handleError(res, error);
+    }
+  }
+  async getClentById(req, res) {
+    try {
+      const id = req.params.id;
+      const clent = await ClentController.findByIdClent(res, id);
+      return succesMessage(res, clent);
+    } catch (error) {
+      return handleError(res, error);
+    }
+  }
+  async updateClent(req, res) {
+    try {
+      const id = req.params.id;
+      const { value, error } = updateClentValidator(req.body);
+      if (error) {
+        return handleError(res, error, 422);
+      }
+      await ClentController.findByIdClent(res, id);
+      const newClent = await Clent.findByIdAndUpdate(id, value, { new: true });
+      return succesMessage(res, newClent);
+    } catch (error) {
+      return handleError(res, error);
+    }
+  }
+  async deleteClent(req, res) {
+    try {
+      const id = req.params.id;
+      await ClentController.findByIdClent(res, id);
+      await Clent.findByIdAndDelete(id);
+      return succesMessage(res, "Deleted clent");
+    } catch (error) {
+      return handleError(res, error);
+    }
+  }
+  static async findByIdClent(res, id) {
+    try {
+      if (!isValidObjectId(id)) {
+        return handleError(res, "Invalid Id Format");
+      }
+      const clent = await Clent.findById(id);
+      if (!clent) {
+        return handleError(res, "Clent not found", 404);
+      }
+      return clent;
+    } catch (error) {
+      return handleError(res, error);
+    }
+  }
+}
