@@ -17,8 +17,8 @@ export const updateProductValidator = (data) => {
   const product = Joi.object({
     name: Joi.string().optional(),
     description: Joi.string().optional(),
-    price: Joi.string().optional(),
-    quantity: Joi.string().optional(),
+    price: Joi.number().optional(),
+    quantity: Joi.number().optional(),
     color: Joi.string().optional(),
     categoryId: Joi.string().optional(),
     salesmanId: Joi.string().optional(),

@@ -29,7 +29,7 @@ class AdminController {
       if (isAdmin) {
         return handleError(res, "Admin already exists", 409);
       }
-      const isEmail = await Admin.findOne({ emai: value.emai });
+      const isEmail = await Admin.findOne({ email: value.email });
       if (isEmail) {
         return handleError(res, "Email already exsts", 409);
       }
@@ -108,15 +108,15 @@ class AdminController {
   }
   async logoutAdmin(req, res) {
     try {
-      console.log(req.cookies?.refreshTokenAdmin);
       const refreshToken = req.cookies?.refreshTokenAdmin;
       if (!refreshToken) {
         return handleError(res, "Token expired", 400);
       }
-      const decodedToken = await token.tokenVerfy(
+      const decodedToken = await token.tokenVerify(
         refreshToken,
         config.REFRESH_TOKEN_KEY
       );
+      console.log(decodedToken);
       if (!decodedToken) {
         return handleError(res, "Invalid token", 400);
       }

@@ -13,19 +13,26 @@ class SolidProductController {
     try {
       const { value, error } = createSolidProductValidator(req.body);
       if (error) {
-        return handleError(res, error, 422);
+        return handleError(res, error, 404);
       }
-      const isProduct = await Product.findById(value.productId);
-      console.log(isProduct);
-      if (!isProduct) {
+      const { productId, clientId, quantity } = value;
+      const product = await Product.findById(productId);
+      if (!product) {
         return handleError(res, "Product not found", 404);
       }
-      const isClient = await Clent.findById(value.clentId);
-      if (!isClient) {
+      const client = await Clent.findById(clientId);
+      if (!client) {
         return handleError(res, "Client not found", 404);
       }
-      const newSolidProduct = await SolidProduct.create(value);
-      return succesMessage(res, newSolidProduct, 201);
+      const totalPrice = quantity * product.price;
+
+      const soldproduct = await SolidProduct.create({
+        productId,
+        clientId,
+        quantity,
+        totalPrice,
+      });
+      return successRes(res, soldproduct, 201);
     } catch (error) {
       return handleError(res, error);
     }

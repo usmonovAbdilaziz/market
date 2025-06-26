@@ -8,6 +8,7 @@ import {
 import { Crypto } from "../utils/hashedpass.js";
 import { Token } from "../utils/server-token.js";
 import { isValidObjectId } from "mongoose";
+import config from "../config/app.js";
 
 const crypto = new Crypto();
 const token = new Token();

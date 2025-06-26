@@ -11,15 +11,15 @@ router
   .post("/", AuthGuard, RolesGuard(["superadmin"]), controller.createAdmin)
   .post("/signin", controller.signinAdmin)
   .post("/confirm", controller.confirmSigninAdmin)
-  .post("/logout", AuthGuard, controller.logoutAdmin)
+  .post(
+    "/logout",
+    AuthGuard,
+    RolesGuard(["superadmin", "admin"]),
+    controller.logoutAdmin
+  )
   .get("/", AuthGuard, RolesGuard(["superadmin"]), controller.getAllAdmins)
   .get("/:id", AuthGuard, SelfGuard, controller.getAdminById)
   .patch("/:id", AuthGuard, SelfGuard, controller.updateAdmin)
-  .delete(
-    "/:id",
-    AuthGuard,
-    RolesGuard(["superadmin"]),
-    controller.deleteAdmin
-  );
+  .delete("/:id", AuthGuard, SelfGuard, controller.deleteAdmin);
 
 export default router;

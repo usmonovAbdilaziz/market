@@ -8,7 +8,12 @@ const router = Router();
 const controller = productController;
 
 router
-  .post("/", AuthGuard, RolesGuard(["salesman"]), controller.createProduct)
+  .post(
+    "/",
+    AuthGuard,
+    RolesGuard(["salesman", "superadmin"]),
+    controller.createProduct
+  )
   .get("/", AuthGuard, SelfGuard, controller.getAllProduct)
   .get("/:id", AuthGuard, SelfGuard, controller.getProductById)
   .patch("/:id", AuthGuard, SelfGuard, controller.updateProduct)

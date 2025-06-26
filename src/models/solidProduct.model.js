@@ -4,8 +4,8 @@ const solidProductSchema = new Schema(
   {
     productId: { type: Types.ObjectId, required: true, ref: "Product" },
     clentId: { type: Types.ObjectId, required: true, ref: "Clent" },
-    quantity: { type: String, required: true },
-    totalPrice: { type: String, required: true },
+    quantity: { type: Number, required: true },
+    totalPrice: { type: Number, required: true },
   },
   {
     timestamps: true,

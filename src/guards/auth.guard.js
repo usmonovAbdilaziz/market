@@ -15,8 +15,12 @@ export const AuthGuard = async (req, res, next) => {
     return handleError(res, "Token error", 401);
   }
   try {
-    const user = await tokenService.verifyToken(token, config.TOKEN_ACCES_KEY);
+    const user = await tokenService.tokenVerify(
+      token,
+      config.REFRESH_TOKEN_KEY
+    );
     req.user = user;
+    console.log(user);
     next();
   } catch (error) {
     return handleError(res, "Unathorized", 401);
