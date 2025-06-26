@@ -6,8 +6,11 @@ import {
   updateClentValidator,
 } from "../validator/clent.validator.js";
 import { Crypto } from "../utils/hashedpass.js";
+import { Token } from "../utils/server-token.js";
+import { isValidObjectId } from "mongoose";
 
 const crypto = new Crypto();
+const token = new Token();
 
 class ClentController {
   async creatClent(req, res) {
@@ -56,11 +59,34 @@ class ClentController {
       return succesMessage(
         res,
         {
-          data: admin,
+          data: clent,
           token: accessToken,
         },
         200
       );
+    } catch (error) {
+      return handleError(res, error);
+    }
+  }
+  async logoutClent(req, res) {
+    try {
+      const refreshToken = req.cookies?.refreshTokenClent;
+      if (!refreshToken) {
+        return handleError(res, "Token expired", 400);
+      }
+      const decodedToken = await token.tokenVerfy(
+        refreshToken,
+        config.REFRESH_TOKEN_KEY
+      );
+      if (!decodedToken) {
+        return handleError(res, "Invalid token", 400);
+      }
+      const clent = await Clent.findById(decodedToken.id);
+      if (!clent) {
+        return handleError(res, "Clent not found", 404);
+      }
+      res.clearCookie("refreshTokenClent");
+      return succesMessage(res, {});
     } catch (error) {
       return handleError(res, error);
     }
@@ -121,3 +147,5 @@ class ClentController {
     }
   }
 }
+
+export default new ClentController();

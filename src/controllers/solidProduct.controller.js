@@ -1,0 +1,92 @@
+import { handleError, succesMessage } from "../helpers/error.succes.js";
+import SolidProduct from "../models/solidProduct.model.js";
+import { isValidObjectId } from "mongoose";
+import {
+  createSolidProductValidator,
+  updateSolidProductValidator,
+} from "../validator/solidProduct.validator.js";
+
+class SolidProductController {
+  async createSolid(req, res) {
+    try {
+      const { value, error } = createSolidProductValidator(req.body);
+      if (error) {
+        return handleError(res, error, 422);
+      }
+      const isProduct = await SolidProduct.findOne({
+        productId: value.productId,
+      });
+      if (!isProduct) {
+        return handleError(res, "Product not found", 404);
+      }
+      const isClient = await SolidProduct.findOne({ clentId: value.clentId });
+      if (!isClient) {
+        return handleError(res, "Client not found", 404);
+      }
+      const newSolidProduct = await SolidProduct.create(value);
+      return succesMessage(res, newSolidProduct, 201);
+    } catch (error) {
+      return handleError(res, error);
+    }
+  }
+  async getAllSolidProduct(_, res) {
+    try {
+      const solidProducts = await SolidProduct.find();
+      return succesMessage(res, solidProducts);
+    } catch (error) {
+      return handleError(res, error);
+    }
+  }
+  async getSolidProductById(req, res) {
+    try {
+      const solidProduct = await SolidProductController.findByIdSolidProduct(
+        res,
+        req.params.id
+      );
+      return succesMessage(res, solidProduct);
+    } catch (error) {
+      return handleError(res, error);
+    }
+  }
+  async updateSolidProduct(req, res) {
+    try {
+      const id = req.params.id;
+      await SolidProductController.findByIdSolidProduct(res, id);
+      const { value, error } = updateSolidProductValidator(req.body);
+      if (error) {
+        return handleError(res, error, 422);
+      }
+      const newSolidProduct = await SolidProduct.findByIdAndUpdate(id, value, {
+        new: true,
+      });
+      return succesMessage(res, newSolidProduct);
+    } catch (error) {
+      return handleError(res, error);
+    }
+  }
+  async deleteSolidProduct(req, res) {
+    try {
+      const id = req.params.id;
+      await SolidProductController.findByIdSolidProduct(res, id);
+      const newSolidProduct = await SolidProduct.findByIdAndDelete(id);
+      return succesMessage(res, "Deleted Solid-Product");
+    } catch (error) {
+      return handleError(res, error);
+    }
+  }
+  static async findByIdSolidProduct(res, id) {
+    try {
+      if (!isValidObjectId(id)) {
+        return handleError(res, "Invalid Id Format");
+      }
+      const solidProduct = await SolidProduct.findById(id);
+      if (!solidProduct) {
+        return handleError(res, "Solid-Product not found", 404);
+      }
+      return solidProduct;
+    } catch (error) {
+      return handleError(res, error);
+    }
+  }
+}
+export default new SolidProductController();
