@@ -21,7 +21,7 @@ class CategoryController {
   }
   async getAllCategorys(_, res) {
     try {
-      const category = await Category.find();
+      const category = await Category.find().populate("products");
       return succesMessage(res, category);
     } catch (error) {
       return handleError(res, error);
@@ -67,7 +67,7 @@ class CategoryController {
       if (!isValidObjectId(id)) {
         return handleError(res, "Invalid Id Format");
       }
-      const category = await Category.findById(id);
+      const category = await Category.findById(id).populate("products");
       if (!category) {
         return handleError(res, "Category not found", 404);
       }

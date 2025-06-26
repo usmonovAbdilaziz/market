@@ -3,7 +3,7 @@ import Joi from "joi";
 export const createSolidProductValidator = (data) => {
   const solid = Joi.object({
     productId: Joi.string().required(),
-    clentid: Joi.string().required(),
+    clentId: Joi.string().required(),
     quantity: Joi.string().required(),
     totalPrice: Joi.string().required(),
   });

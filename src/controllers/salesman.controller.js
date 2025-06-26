@@ -48,7 +48,7 @@ class SalesmanController {
       if (!pass) {
         return handleError(res, "Salesman not found");
       }
-      const payload = { id: salesman._id };
+      const payload = { id: salesman._id, role: "salesman" };
       const refreshToken = await token.generateAccesToken(payload);
       const accessToken = await token.generateRefreshToken(payload);
       res.cookie("refreshTokenSalesman", refreshToken, {
@@ -93,7 +93,7 @@ class SalesmanController {
   }
   async getAllSalesmans(_, res) {
     try {
-      const salesmans = await Salesman.find();
+      const salesmans = await Salesman.find().populate("products");
       return succesMessage(res, salesmans);
     } catch (error) {
       return handleError(res, error);
@@ -139,7 +139,7 @@ class SalesmanController {
       if (!isValidObjectId(id)) {
         return handleError(res, "Invalid Id Format");
       }
-      const salesman = await Salesman.findById(id);
+      const salesman = await Salesman.findById(id).populate("products");
       if (!salesman) {
         return handleError(res, "Salesman not found", 404);
       }

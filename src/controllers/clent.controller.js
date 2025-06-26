@@ -93,7 +93,7 @@ class ClentController {
   }
   async getAllClents(_, res) {
     try {
-      const clents = await Clent.find();
+      const clents = await Clent.find().populate("solid");
       return succesMessage(res, clents);
     } catch (error) {
       return handleError(res, error);
@@ -126,7 +126,7 @@ class ClentController {
     try {
       const id = req.params.id;
       await ClentController.findByIdClent(res, id);
-      await Clent.findByIdAndDelete(id);
+      await Clent.findByIdAndDelete(id).populate("solid");
       return succesMessage(res, "Deleted clent");
     } catch (error) {
       return handleError(res, error);
@@ -137,7 +137,7 @@ class ClentController {
       if (!isValidObjectId(id)) {
         return handleError(res, "Invalid Id Format");
       }
-      const clent = await Clent.findById(id);
+      const clent = await Clent.findById(id).populate("solid");
       if (!clent) {
         return handleError(res, "Clent not found", 404);
       }

@@ -5,6 +5,8 @@ import {
   createSolidProductValidator,
   updateSolidProductValidator,
 } from "../validator/solidProduct.validator.js";
+import Product from "../models/products.model.js";
+import Clent from "../models/clent.model.js";
 
 class SolidProductController {
   async createSolid(req, res) {
@@ -13,13 +15,12 @@ class SolidProductController {
       if (error) {
         return handleError(res, error, 422);
       }
-      const isProduct = await SolidProduct.findOne({
-        productId: value.productId,
-      });
+      const isProduct = await Product.findById(value.productId);
+      console.log(isProduct);
       if (!isProduct) {
         return handleError(res, "Product not found", 404);
       }
-      const isClient = await SolidProduct.findOne({ clentId: value.clentId });
+      const isClient = await Clent.findById(value.clentId);
       if (!isClient) {
         return handleError(res, "Client not found", 404);
       }
@@ -31,7 +32,9 @@ class SolidProductController {
   }
   async getAllSolidProduct(_, res) {
     try {
-      const solidProducts = await SolidProduct.find();
+      const solidProducts = await SolidProduct.find()
+        .populate("productId")
+        .populate("clentId");
       return succesMessage(res, solidProducts);
     } catch (error) {
       return handleError(res, error);
@@ -79,7 +82,9 @@ class SolidProductController {
       if (!isValidObjectId(id)) {
         return handleError(res, "Invalid Id Format");
       }
-      const solidProduct = await SolidProduct.findById(id);
+      const solidProduct = await SolidProduct.findById(id)
+        .populate("productId")
+        .populate("clentId");
       if (!solidProduct) {
         return handleError(res, "Solid-Product not found", 404);
       }

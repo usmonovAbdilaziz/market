@@ -31,7 +31,9 @@ class ProductController {
   }
   async getAllProduct(_, res) {
     try {
-      const products = await Product.find();
+      const products = await Product.find()
+        .populate("categoryId")
+        .populate("salesmanId");
       return succesMessage(res, products);
     } catch (error) {
       return handleError(res, error);
@@ -79,7 +81,9 @@ class ProductController {
       if (!isValidObjectId(id)) {
         return handleError(res, "Invalid Id Format");
       }
-      const products = await Product.findById(id);
+      const products = await Product.findById(id)
+        .populate("categoryId")
+        .populate("salesmanId");
       if (!products) {
         return handleError(res, "Product not found", 404);
       }

@@ -1,5 +1,8 @@
 import { Router } from "express";
 import salesmanController from "../controllers/salesman.controller.js";
+import { AuthGuard } from "../guards/auth.guard.js";
+import { RolesGuard } from "../guards/roles.guard.js";
+import { SelfGuard } from "../guards/self.guard.js";
 
 const router = Router();
 const controller = salesmanController;
@@ -7,10 +10,15 @@ const controller = salesmanController;
 router
   .post("/", controller.creatSalesman)
   .post("/signin", controller.signinSalesman)
-  .post("/logout", controller.logoutSalesman)
-  .get("/", controller.getAllSalesmans)
-  .get("/:id", controller.getSalesmanById)
-  .patch("/:id", controller.updateSalesman)
-  .delete("/:id", controller.deleteSalesman);
+  .post(
+    "/logout",
+    AuthGuard,
+    RolesGuard(["superadmin"]),
+    controller.logoutSalesman
+  )
+  .get("/", AuthGuard, RolesGuard(["superadmin"]), controller.getAllSalesmans)
+  .get("/:id", AuthGuard, SelfGuard, controller.getSalesmanById)
+  .patch("/:id", AuthGuard, SelfGuard, controller.updateSalesman)
+  .delete("/:id", AuthGuard, SelfGuard, controller.deleteSalesman);
 
 export default router;
