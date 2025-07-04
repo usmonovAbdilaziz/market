@@ -1,0 +1,70 @@
+Date : 2025-07-04 20:26:45
+Directory : c:\Users\Abdilaziz\market\src
+Total : 36 files,  1389 codes, 0 comments, 115 blanks, all 1504 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| JavaScript |         36 |      1,389 |          0 |        115 |      1,504 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++----------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                 | files      | code       | comment    | blank      | total      |
++----------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                    |         36 |      1,389 |          0 |        115 |      1,504 |
+| . (Files)                                                            |          1 |         33 |          0 |          7 |         40 |
+| config                                                               |          1 |         17 |          0 |          2 |         19 |
+| controllers                                                          |          6 |        762 |          0 |         19 |        781 |
+| db                                                                   |          2 |         33 |          0 |          5 |         38 |
+| guards                                                               |          3 |         44 |          0 |          7 |         51 |
+| helpers                                                              |          3 |         41 |          0 |          6 |         47 |
+| models                                                               |          6 |        118 |          0 |         24 |        142 |
+| routes                                                               |          6 |        105 |          0 |         25 |        130 |
+| utils                                                                |          2 |         33 |          0 |          3 |         36 |
+| validator                                                            |          6 |        203 |          0 |         17 |        220 |
++----------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++----------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                             | language   | code       | comment    | blank      | total      |
++----------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| c:\Users\Abdilaziz\market\src\config\app.js                          | JavaScript |         17 |          0 |          2 |         19 |
+| c:\Users\Abdilaziz\market\src\controllers\admin.controller.js        | JavaScript |        186 |          0 |          4 |        190 |
+| c:\Users\Abdilaziz\market\src\controllers\category.controller.js     | JavaScript |         79 |          0 |          3 |         82 |
+| c:\Users\Abdilaziz\market\src\controllers\clent.controller.js        | JavaScript |        149 |          0 |          4 |        153 |
+| c:\Users\Abdilaziz\market\src\controllers\product.controller.js      | JavaScript |         95 |          0 |          2 |         97 |
+| c:\Users\Abdilaziz\market\src\controllers\salesman.controller.js     | JavaScript |        151 |          0 |          3 |        154 |
+| c:\Users\Abdilaziz\market\src\controllers\solidProduct.controller.js | JavaScript |        102 |          0 |          3 |        105 |
+| c:\Users\Abdilaziz\market\src\db\create.owner.js                     | JavaScript |         22 |          0 |          3 |         25 |
+| c:\Users\Abdilaziz\market\src\db\server.js                           | JavaScript |         11 |          0 |          2 |         13 |
+| c:\Users\Abdilaziz\market\src\guards\auth.guard.js                   | JavaScript |         26 |          0 |          3 |         29 |
+| c:\Users\Abdilaziz\market\src\guards\roles.guard.js                  | JavaScript |         10 |          0 |          2 |         12 |
+| c:\Users\Abdilaziz\market\src\guards\self.guard.js                   | JavaScript |          8 |          0 |          2 |         10 |
+| c:\Users\Abdilaziz\market\src\helpers\error.succes.js                | JavaScript |         14 |          0 |          1 |         15 |
+| c:\Users\Abdilaziz\market\src\helpers\generate-otp.js                | JavaScript |          8 |          0 |          2 |         10 |
+| c:\Users\Abdilaziz\market\src\helpers\send-mail.js                   | JavaScript |         19 |          0 |          3 |         22 |
+| c:\Users\Abdilaziz\market\src\main.js                                | JavaScript |         33 |          0 |          7 |         40 |
+| c:\Users\Abdilaziz\market\src\models\admin.model.js                  | JavaScript |         15 |          0 |          4 |         19 |
+| c:\Users\Abdilaziz\market\src\models\category.model.js               | JavaScript |         19 |          0 |          5 |         24 |
+| c:\Users\Abdilaziz\market\src\models\clent.model.js                  | JavaScript |         21 |          0 |          3 |         24 |
+| c:\Users\Abdilaziz\market\src\models\products.model.js               | JavaScript |         24 |          0 |          4 |         28 |
+| c:\Users\Abdilaziz\market\src\models\salesman.model.js               | JavaScript |         23 |          0 |          5 |         28 |
+| c:\Users\Abdilaziz\market\src\models\solidProduct.model.js           | JavaScript |         16 |          0 |          3 |         19 |
+| c:\Users\Abdilaziz\market\src\routes\admin.routes.js                 | JavaScript |         22 |          0 |          4 |         26 |
+| c:\Users\Abdilaziz\market\src\routes\category.routes.js              | JavaScript |         11 |          0 |          4 |         15 |
+| c:\Users\Abdilaziz\market\src\routes\clent.routes.js                 | JavaScript |         21 |          0 |          5 |         26 |
+| c:\Users\Abdilaziz\market\src\routes\products.routes.js              | JavaScript |         19 |          0 |          4 |         23 |
+| c:\Users\Abdilaziz\market\src\routes\salesman.routes.js              | JavaScript |         21 |          0 |          4 |         25 |
+| c:\Users\Abdilaziz\market\src\routes\solidProduct.routes.js          | JavaScript |         11 |          0 |          4 |         15 |
+| c:\Users\Abdilaziz\market\src\utils\hashedpass.js                    | JavaScript |          9 |          0 |          2 |         11 |
+| c:\Users\Abdilaziz\market\src\utils\server-token.js                  | JavaScript |         24 |          0 |          1 |         25 |
+| c:\Users\Abdilaziz\market\src\validator\admin.validator.js           | JavaScript |         54 |          0 |          3 |         57 |
+| c:\Users\Abdilaziz\market\src\validator\category.validator.js        | JavaScript |         15 |          0 |          3 |         18 |
+| c:\Users\Abdilaziz\market\src\validator\clent.validator.js           | JavaScript |         44 |          0 |          2 |         46 |
+| c:\Users\Abdilaziz\market\src\validator\product.validator.js         | JavaScript |         25 |          0 |          3 |         28 |
+| c:\Users\Abdilaziz\market\src\validator\salesman.validator.js        | JavaScript |         48 |          0 |          3 |         51 |
+| c:\Users\Abdilaziz\market\src\validator\solidProduct.validator.js    | JavaScript |         17 |          0 |          3 |         20 |
+| Total                                                                |            |      1,389 |          0 |        115 |      1,504 |
++----------------------------------------------------------------------+------------+------------+------------+------------+------------+

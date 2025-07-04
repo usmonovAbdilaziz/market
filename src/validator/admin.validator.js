@@ -7,7 +7,7 @@ export const createAdminValidator = (data) => {
       .regex(/^[a-zA-Z0-9]+@gmail\.com$/)
       .required(),
     phone: Joi.string()
-      .regex(/^\+99\d{7,12}$/)
+      .regex(/^\+998\d{7,12}$/)
       .required(),
     password: Joi.string()
       .regex(
@@ -44,7 +44,7 @@ export const updateAdminValidator = (data) => {
       .regex(/^[a-zA-Z0-9]+@gmail\.com$/)
       .optional(),
     phone: Joi.string()
-      .regex(/^\+99\d{7,12}$/)
+      .regex(/^\+998\d{7,12}$/)
       .optional(),
     password: Joi.string()
       .regex(
